@@ -24,9 +24,7 @@ public class CompanyAnnualMemoryService : ICompanyAnnualService, ICompanyMemoryS
     public async ValueTask<IEnumerable<Company>> GetFiltered(string startsWith)
     {
         await isReady.Task;
-        return companyStore.Where(c => c.Name.StartsWith(startsWith));
-
-        throw new NotImplementedException();
+        return companyStore.Where(c => c.Name.StartsWith(startsWith, StringComparison.OrdinalIgnoreCase));
     }
 
     /// <summary>

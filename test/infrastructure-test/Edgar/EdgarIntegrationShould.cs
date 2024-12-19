@@ -7,7 +7,7 @@ namespace Fora.Challenge.Impl.Edgar.Test;
 public class EdgarIntegrationShould
 {
     [Fact]
-    public async Task GetCompanyInfo()
+    public async Task GetExpectedCompanyInfo()
     {
         var provider = (new ServiceCollection()).AddInfrastructure().BuildServiceProvider();
         var sut = provider.GetRequiredService<EdgarService>();
@@ -20,7 +20,7 @@ public class EdgarIntegrationShould
     }
 
     [Fact]
-    public async Task Startup()
+    public async Task StartupCorrectly()
     {
         var host = Host.CreateDefaultBuilder()
             .ConfigureServices(services =>
@@ -38,6 +38,7 @@ public class EdgarIntegrationShould
 
         var companies = await companyService.GetAll();
         Assert.NotNull(companies);
+        Assert.True(companies.Count() > 90);    // 92 at last check
 
         cts.Cancel();
         await hostTask;
